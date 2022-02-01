@@ -43,13 +43,13 @@ const inputObject = {
     Bangalore: 3,
   },
 };
+// empty array to store the visted nodes to give the route
 let array = [];
-// to find the shortest route
-let shortestroute = (openingobject, startpoint, endpoint) => {
+// to find the shortest inputObject
+let shortestroute = (openingobject,startpoint,endpoint) => {
   if (openingobject[startpoint] === undefined) {
     return;
   }
-
   // track distances from the start node using a object
   let currentdis = {};
   //setting infinity to calculate later
@@ -88,9 +88,9 @@ let shortestroute = (openingobject, startpoint, endpoint) => {
   // record the shortestone path
   let shortestPath = [endpoint];
   let parent = parentelements[endpoint];
-  console.log(parent);
+  // console.log(parent);
   while (parent) {
-    console.log(parent);
+    // console.log(parent);
     shortestPath.push(parent);
     parent = parentelements[parent];
   }
@@ -100,23 +100,24 @@ let shortestroute = (openingobject, startpoint, endpoint) => {
     distance: currentdis[endpoint],
     path: shortestPath,
   };
-
+  
+  let dis = results.distance;
   // return the shortestone path & the end node's distance from the start node
-  console.log(results);
+  console.log(dis);
   return results;
 };
 
+
 let findingShortestDistance = (currentdis, visited) => {
+  // at intialisation we cannot find the shortest distance so make it as null
   let shortestone = null;
+  // if we see into the currentdis path whether the previous node is the shortest or not
   for (let node in currentdis) {
-    let currentIsShortest =
-      shortestone === null || currentdis[node] < currentdis[shortestone];
+    // if there is no shortest distance availabe in neighbour node or the curretnode is whether less than the shortest distance
+    let currentIsShortest = shortestone === null || currentdis[node] < currentdis[shortestone];
+    // if the urretnode is whether less than the shortest distance and also visited array does not contains the neighbour node
     if (currentIsShortest && !visited.includes(node)) {
-      // if (inputObject[node] !== undefined) {
       shortestone = node;
-      // } else {
-      //   return;
-      // }
     }
   }
   // console.log(shortestone, "short");
@@ -124,117 +125,67 @@ let findingShortestDistance = (currentdis, visited) => {
 };
 
 let finaloutput;
-function calculatingDays(arr1) {
-  for (i = 0; i < arr1.length; i++) {
-    const obj1 = inputObject[arr1[i]];
-    if (obj1 !== undefined) {
-      if (obj1[arr1[i + 1]] !== undefined) {
-        array.push(obj1[arr1[i + 1]]);
-      }
-    }
-  }
-}
-
-// getting the datas from user
+// fetching the datas from above input array cities01
 const fetchingFrom = function (data) {
   let createFrom = "";
   Object.keys(data).forEach((e, index) => {
     createFrom += `<option value = '${e}'>${data[e]}</option>`;
   });
   from.insertAdjacentHTML("beforeend", createFrom);
+  // to.insertAdjacentHTML("beforeend", createFrom);
 };
-// getting the user input from 
 fetchingFrom(cities01);
-const fetchingTo = function (data) {
-  let createFrom = "";
-  Object.keys(data).forEach((e, index) => {
-    createFrom += `<option value = '${e}'>${data[e]}</option>`;
-  });
-  to.insertAdjacentHTML("beforeend", createFrom);
-};
-fetchingTo(cities02);
 
-// from btn adding the function
+// fetching the datas from above input array cities02
+const fetchingTo = function (data) {
+    let createFrom = "";
+    Object.keys(data).forEach((e, index) => {
+      createFrom += `<option value = '${e}'>${data[e]}</option>`;
+    });
+    to.insertAdjacentHTML("beforeend", createFrom);
+  };
+  fetchingTo(cities02);
+
+  // getting the from input by using the from 
 from.addEventListener("change", (e) => {
   fromInput = e.target.value;
-  output.innerHTML = "";
+ output.innerHTML = "";
 });
 
-// to btn adding the function
 to.addEventListener("change", (e) => {
   toInput = e.target.value;
-  output.innerHTML = "";
+ output.innerHTML = "";
 });
 
-// 
+// for get the route btn adding the events.
 btn.addEventListener("click", () => {
   let from = cities01[fromInput];
   let to = cities02[toInput];
-  console.log(from, to);
-  if (from === to && from === undefined && to === undefined) {
-    output.innerHTML = "Please Enter a Valid Input";
-    return;
-  }
+  // console.log(from, to);
+  // if the from or to ,anything is undefined,then return
   if (from !== undefined && to !== undefined) {
     finaloutput = shortestroute(inputObject, from, to);
 
     if (
-      finaloutput &&finaloutput.distance !== "Infinity"
+      finaloutput &&
+      // inputObject[finaloutput.path] !== undefined &&
+      finaloutput.distance !== "Infinity"
     ) {
-      calculatingDays(finaloutput.path);
-      settingUI(finaloutput.path, finaloutput.distance, array);
+     settingUI(finaloutput.path, finaloutput.distance);
     } else {
-      output.innerHTML = "Route Not Found";
+     output.innerHTML = "route can't be found";
     }
   }
 });
-console.log(finaloutput);
-// displaying the UI
+// console.log(finaloutput);
+var d = (new Date()).toString().split(' ').splice(1,3).join(' ');
+console.log(d);
+//  let currentdate = document.write(d);
 
-// to show the functions
-function showingDate(days) {
-  let startDate = new Date();
-  let endDate;
-  let daysAddition = days;
-  let count = 0;
-  while (count < daysAddition) {
-    endDate = new Date(startDate.setDate(startDate.getDate() + 1));
-    if (endDate.getDay() != 0 && endDate.getDay() != 6) {
-      count++;
-    }
-  }
-  return endDate;
-}
-// for making the superscript
-const lastWord = function (d) {
-  if (d > 3 && d < 21) return `${d}<sup>th</sup>`;
-  switch (d % 10) {
-    case 1:
-      return `${d}<sup>st</sup>`;
-    case 2:
-      return `${d}<sup>nd</sup>`;
-    case 3:
-      return `${d}<sup>rd</sup>`;
-    default:
-      return `${d}<sup>th</sup>`;
-  }
-};
-const settingUI = function (path, totaldays, numberPath) {
-  // html content for route
+// var d1 = (new Date(+1)).toString().split(' ').splice(1,3).join(' ');
+// console.log(d1) ;
+const settingUI = function (path, numberPath) {
   let htmltextcontentOutput = "";
-  // fetching the date
-  let startingDate = new Date();
-  let dayFrom1 = startingDate.getDate();
-  let dayFrom = lastWord(dayFrom1);
-  // fetching the month
-  let monthFrom = allMonth[startingDate.getMonth()];
-  // showing the total days
-  const dateShowing = showingDate(totaldays);
-  let dayTo2 = dateShowing.getDate();
-  let dayTo = lastWord(dayTo2);
-  let monthTo = allMonth[dateShowing.getMonth()];
-  // adding the from departute to arrival
-  if (array.length !== 0) {
     path.forEach((e, index) => {
       if (index + 1 === path.length) {
         htmltextcontentOutput += `${e}<br>`;
@@ -242,12 +193,18 @@ const settingUI = function (path, totaldays, numberPath) {
         htmltextcontentOutput += `${e} to `;
       }
     });
-    // adding the input elements
-    htmltextcontentOutput += `${dayFrom} ${monthFrom} to Arrive on ${dayTo} ${monthTo}`;
-    output.innerHTML = htmltextcontentOutput;
-  } else {
-    output.innerHTML = "Route Not Found";
-  }
-// declaring the empty array
+    function addDays(theDate, days) {
+      return (new Date(theDate.getTime() + days*24*60*60*1000)).toString().split(' ').splice(1,3).join(' ');
+    }
+    var newDate = addDays(new Date(),finaloutput.distance)
+// console.log(currentdate);
+
+    htmltextcontentOutput = htmltextcontentOutput + `Totally it take ${numberPath} Days` +  `from ${d}` +  ` to ${newDate}`;
+   output.innerHTML = htmltextcontentOutput;
+   output.classList.remove('hidden');
+  //  output.classList.remove('hidden');
   array = [];
+
 };
+
+
