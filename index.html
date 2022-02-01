@@ -10,22 +10,29 @@
   <body>
     <div class="container">
       <div class="selects">Find Your Best Route</div>
-      <div class="total">
-        <div class="first">
-          <select name="from" class="from">
-            <option class="fromclass" value="fromChange">DepartureFrom</option>
-          </select>
+      <div class="fullcontainer">
+        <div class="total">
+          <div class="first">
+            <span class="label success">From</span>
+            <select name="from" class="from">
+              <option class="fromclass" value="fromChange">Select City</option>
+            </select>
+          </div>
+          <div class="second">
+            <span class="label success">To</span>
+            <select name="from" class="from to">
+              <option class="fromclass" value="fromChange">Select City</option>
+            </select>
+          </div>
         </div>
-        <div class="second">
-          <select name="from" class="from to">
-            <option class="fromclass" value="fromChange">Arrival To</option>
-          </select>
-        </div>
+        <button class="btn">Get the Route </button>
       </div>
-      <button class="btn">Get the Route </button>
-      <div class="answer"></div>
+      
+      <div class="answer hidden">
+        <!-- using javascript -->
+      </div>
     </div>
-    <table>
+    <table class="tables">
       <tr>
         <th>Start</th>
         <th>End</th>
