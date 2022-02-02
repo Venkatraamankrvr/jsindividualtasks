@@ -68,8 +68,10 @@ if (el !== '')
   array.push(el)
 }
 })
+let map = {};
+console.log(map);
 console.log(array);
-  let map = {};
+if(array.length != 0){
   // console.log(array);
   for (let i = 0; i < array.length; i++) 
   {
@@ -77,6 +79,13 @@ console.log(array);
     map[item] = (map[item] + 1) || 1; // key is map[item]
     console.log(map[item]);
   }
+  head.classList.remove('hidden')
+}
+else{
+  // console.log('hio0000')
+  head.classList.add('hidden')
+  // table.textContent = 'hiii'
+}
    return map ; 
    console.log(map);
   
