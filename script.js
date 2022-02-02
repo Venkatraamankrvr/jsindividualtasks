@@ -7,7 +7,9 @@ let val;
 
 btn.addEventListener('click',(e)=>{
   val = inputVal.value;
-  
+  console.log(val)
+  if(val !== ""){
+    table.classList.remove('hidden')
    getWordCount(val)
    let output = getWordCount(val) ;
    const key = Object.keys(output);
@@ -15,7 +17,7 @@ btn.addEventListener('click',(e)=>{
    table.classList.remove("hidden");
    const tableHead =  document.createElement('tr');
   tableHead.innerHTML = `<th> Words</th>
-                     <th> Words count</th>
+                         <th> Words count</th>
   `;
   head.appendChild(tableHead);
   
@@ -26,11 +28,20 @@ btn.addEventListener('click',(e)=>{
     <td>${value[i]}</td>
     `;
 body.appendChild(tablebody);
-
   }
-  
+  clear();
+}
+});
 
-})
+const clearit = function(){
+  // inputVal.value = "";
+  // tableHead.innerHTML = "";
+  table.classList.add('hidden')
+  body.innerText = ""
+  head.innerText = ""
+
+
+}
 
 function getInputValue(val){
   console.log(val);
@@ -42,10 +53,22 @@ function getWordCount(val){
 const myString1 = val;
 console.log(myString1);
 const capitalize = myString1.toLowerCase()
-const split = capitalize.split(' ',capitalize.length);
+let desired = capitalize.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/g,' ');
+console.log(desired);
+const split = desired.split(' ',capitalize.length);
+console.log(split)
 // const split1 = split.trim();
 // console.log(split)
- let array = split;
+let arr= split;
+let array = [];
+arr.forEach((el)=>
+{
+if (el !== '')
+{
+  array.push(el)
+}
+})
+console.log(array);
   let map = {};
   // console.log(array);
   for (let i = 0; i < array.length; i++) 
@@ -56,11 +79,10 @@ const split = capitalize.split(' ',capitalize.length);
   }
    return map ; 
    console.log(map);
-   
-  
   
 }
-// getWordCount(array); 
+const clear = function(){
+  // inputField.value = "";
+  inputVal.value = "";
 
-// console.log(getWordCount(array));
-
+};
