@@ -1,18 +1,33 @@
-.container{
+
+html,
+body {
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgb(180, 180, 243);
+  margin: 0px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   align-items: center;
   justify-content: center;
-  width: auto;
-  height: 100vh;
-  background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(246,75,91,0.8953956582633054) 50%, rgba(0,212,255,1) 100%);
+  width: 100%;
+  overflow: auto;
+  min-height: 40vh;
+  box-sizing: border-box;
 }
+
 .hidden{
   display: none;
 }
 .btn{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .btn {
@@ -36,13 +51,16 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(246,75,91,0.895395658
   width: 30%;
   height: 5%;
   padding: 3px;
-  font-size: 15px;
-  margin-bottom: 30px;
+  font-size: 28px;
+  margin-bottom: 10px;
 
 }
 ::placeholder {
    padding: 32px 120px; 
   font-size: 20px;
+}
+.hidden{
+  display: none;
 }
 table,
   th,
@@ -52,4 +70,7 @@ table,
     margin-top: 2rem;
     padding: 21px;
     font-size: 21px;
+  }
+  .table{
+    margin-bottom: 40px;
   }
