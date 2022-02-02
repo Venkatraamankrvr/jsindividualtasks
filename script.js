@@ -4,8 +4,6 @@ const cities01 = [
 // to cities
   const cities02 = [
   "Madurai","Tirunelveli","Trichy","Chennai","Coimbatore","Salem","Bangalore","Mumbai",];
-// all months
-  const allMonth = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC",];
 // variables
 const from = document.querySelector(".from");
 const to = document.querySelector(".to");
@@ -194,17 +192,60 @@ const settingUI = function (path, numberPath) {
       }
     });
     function addDays(theDate, days) {
+      // let currentdate
       return (new Date(theDate.getTime() + days*24*60*60*1000)).toString().split(' ').splice(1,3).join(' ');
     }
     var newDate = addDays(new Date(),finaloutput.distance)
+
+
+//////
+
+function getBusinessDays(dateObj, days) {
+  for (var i = 0; i < days; i++) {
+      if (days > 0) {
+          switch (dateObj.getDay()) {
+            // 6 being Saturday and 0 being Sunday.
+            case 6, 0:
+              dateObj.setDate(dateObj.getDate() + 2)
+              break;
+              // sunday.
+              case 0:
+                dateObj.setDate(dateObj.getDate() + 1)
+                break;
+                //5 = Friday.
+                case 6:
+                  dateObj.setDate(dateObj.getDate() + 2)
+                  break;
+                //handle Monday, Tuesday, Wednesday and Thursday!
+                default:
+                  dateObj.setDate(dateObj.getDate() + 1)
+                  //console.log(dateObj)
+                  break;
+                }
+                console.log('hioooo');
+      }
+  }
+
+  return dateObj;
+}
+
+console.log('hii');
+//Mon Dec 20 2021 18:56:01 GMT+0530 (India Standard Time)
+console.log(getBusinessDays(new Date(), finaloutput.distance))
+
+
+
+
+    let weekendday = (getBusinessDays(new Date(),finaloutput.distance)).toString().split(' ').splice(1,3).join(' ')
+    console.log(weekendday);
 // console.log(currentdate);
 
-    htmltextcontentOutput = htmltextcontentOutput + `Totally it take ${numberPath} Days` +  `from ${d}` +  ` to ${newDate}`;
+    htmltextcontentOutput = htmltextcontentOutput + `Totally it take ${numberPath} Days` +  `from ${d}`+` to ${weekendday}`;
    output.innerHTML = htmltextcontentOutput;
+   output.classList.add('show');
    output.classList.remove('hidden');
   //  output.classList.remove('hidden');
   array = [];
-
 };
 
 
