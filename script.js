@@ -124,30 +124,34 @@ let findingShortestDistance = (currentdis, visited) => {
 
 let finaloutput;
 // fetching the datas from above input array cities01
-const fetchingFrom = function (data) {
+const fetchFrom = function (data) {
   let createFrom = "";
   Object.keys(data).forEach((e, index) => {
     createFrom += `<option value = '${e}'>${data[e]}</option>`;
   });
   from.insertAdjacentHTML("beforeend", createFrom);
+  output.classList.add('hidden')
+ output.classList.remove('show');
   // to.insertAdjacentHTML("beforeend", createFrom);
 };
-fetchingFrom(cities01);
+fetchFrom(cities01);
 
 // fetching the datas from above input array cities02
-const fetchingTo = function (data) {
+const fetchTo = function (data) {
     let createFrom = "";
     Object.keys(data).forEach((e, index) => {
       createFrom += `<option value = '${e}'>${data[e]}</option>`;
     });
     to.insertAdjacentHTML("beforeend", createFrom);
   };
-  fetchingTo(cities02);
+  fetchTo(cities02);
 
   // getting the from input by using the from 
 from.addEventListener("change", (e) => {
   fromInput = e.target.value;
  output.innerHTML = "";
+ output.classList.add('hidden')
+ output.classList.remove('show');
 });
 
 to.addEventListener("change", (e) => {
@@ -172,6 +176,8 @@ btn.addEventListener("click", () => {
      settingUI(finaloutput.path, finaloutput.distance);
     } else {
      output.innerHTML = "route can't be found";
+     output.classList.add('show');
+   output.classList.remove('hidden');
     }
   }
 });
@@ -186,9 +192,9 @@ const settingUI = function (path, numberPath) {
   let htmltextcontentOutput = "";
     path.forEach((e, index) => {
       if (index + 1 === path.length) {
-        htmltextcontentOutput += `${e}<br>`;
+        htmltextcontentOutput += `${e} ✋🏻<br> `;
       } else {
-        htmltextcontentOutput += `${e} to `;
+        htmltextcontentOutput += `${e}  ➡️ `; //  ⏩  →
       }
     });
     function addDays(theDate, days) {
@@ -196,8 +202,6 @@ const settingUI = function (path, numberPath) {
       return (new Date(theDate.getTime() + days*24*60*60*1000)).toString().split(' ').splice(1,3).join(' ');
     }
     var newDate = addDays(new Date(),finaloutput.distance)
-
-
 //////
 
 function getBusinessDays(dateObj, days) {
@@ -209,38 +213,34 @@ function getBusinessDays(dateObj, days) {
               dateObj.setDate(dateObj.getDate() + 2)
               break;
               // sunday.
-              case 0:
+            case 0:
                 dateObj.setDate(dateObj.getDate() + 1)
                 break;
                 //5 = Friday.
-                case 6:
+            case 6:
                   dateObj.setDate(dateObj.getDate() + 2)
                   break;
                 //handle Monday, Tuesday, Wednesday and Thursday!
-                default:
+            default:
                   dateObj.setDate(dateObj.getDate() + 1)
                   //console.log(dateObj)
                   break;
                 }
-                console.log('hioooo');
+            console.log('hioooo');
       }
   }
-
   return dateObj;
 }
 
 console.log('hii');
 //Mon Dec 20 2021 18:56:01 GMT+0530 (India Standard Time)
 console.log(getBusinessDays(new Date(), finaloutput.distance))
-
-
-
-
     let weekendday = (getBusinessDays(new Date(),finaloutput.distance)).toString().split(' ').splice(1,3).join(' ')
     console.log(weekendday);
 // console.log(currentdate);
 
-    htmltextcontentOutput = htmltextcontentOutput + `Totally it take ${numberPath} Days` +  `from ${d}`+` to ${weekendday}`;
+    htmltextcontentOutput = htmltextcontentOutput + `Totally it take <span style="font-weight:bold"; color:green"> ${numberPath} Days</span>
+    to Reach <br>` +  `Starts at ${d}`+`,then reach on ${weekendday}`;
    output.innerHTML = htmltextcontentOutput;
    output.classList.add('show');
    output.classList.remove('hidden');
