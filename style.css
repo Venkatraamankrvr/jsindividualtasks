@@ -7,7 +7,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
   background-color: rgb(203, 203, 204);
 }
 .container {
@@ -72,12 +71,22 @@ body {
 
 .btn {
   padding: 10px;
-  background-color: rgb(210, 247, 80);
+  background-color: green;
   font-size: 20px;
   border: none;
   border-radius: 30px;
+  cursor: pointer;
+  background-color: powderblue;
+  transition: background-color .5s;
+
 }
-.answer {
+btn:hover{
+  /* background-color: greenyellow;
+  */
+  transition: background-color .5s;
+   background-color: gold;
+}
+.show {
   font-size: 30px;
   color: rgb(1, 1, 12);
   border: 2px solid black;
@@ -85,10 +94,12 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100px;
-  width: 500px;
+  width: 600px;
+  border: none;
 	border-radius: 5px;
-	background-color: rgba(104, 186, 224, 0.904);
-	color: #fff;
+	background-color: #fff;
+  padding: 15px;
+	color: #111;
 }
 .tables{
   margin-right: 30px;
